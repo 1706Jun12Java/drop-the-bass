@@ -1,5 +1,6 @@
 package com.revature.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.persistence.OneToMany;
 @Entity
 @Table(name= "VenueOwner")
 @PrimaryKeyJoinColumn(name = "OWNER_ID", referencedColumnName = "USER_ID")
-public class VenueOwner extends User{
+public class VenueOwner extends User implements Serializable{
 	@Column(name = "FIRSTNAME")
 	private String firstName;
 	@Column(name = "LASTNAME")

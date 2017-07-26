@@ -5,9 +5,9 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "User")
+@Table(name = "USERS_TABLE")
 @Inheritance(strategy=InheritanceType.JOINED)
-public abstract class User implements Serializable{
+public class User implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "User_ID_Seq")
 	@SequenceGenerator(allocationSize = 1, name = "User_ID_Seq", sequenceName = "User_ID_Seq")

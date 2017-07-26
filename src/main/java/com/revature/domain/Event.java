@@ -1,11 +1,13 @@
 package com.revature.domain;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.*;
-
-public class Event {
+@Entity
+@Table(name="Event_TABLE")
+public class Event implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EventIDSeq")
@@ -16,13 +18,14 @@ public class Event {
 	private List<Venue> venues;
 	@Column(name = "DESCRIPTION")
 	private String description;
-	@Column(name = "START")
+	@Column(name = "EVENT_START")
 	private Timestamp start;
-	@Column(name = "END")
+	@Column(name = "EVENT_END")
 	private Timestamp end;
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "CREATED_BY")
 	private VenueOwner venueOwner;
+	
 	public long getId() {
 		return id;
 	}
@@ -54,5 +57,13 @@ public class Event {
 	}
 	public void setEnd(Timestamp end) {
 		this.end = end;
+	}
+
+	public VenueOwner getVenueOwner() {
+		return venueOwner;
+	}
+
+	public void setVenueOwner(VenueOwner venueOwner) {
+		this.venueOwner = venueOwner;
 	}
 }
