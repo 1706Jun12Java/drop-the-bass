@@ -23,7 +23,7 @@ public class Event implements Serializable{
 	@Column(name = "EVENT_END")
 	private Timestamp end;
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "CREATED_BY")
+	@JoinColumn(name ="CREATED_BY")
 	private VenueOwner venueOwner;
 	
 	public long getId() {
