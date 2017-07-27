@@ -21,9 +21,9 @@ public class TestDomain {
 		vo.setAccountType(0);
 		sess.save(vo);*/
 		Artist a = new Artist();
-		a.setUsername("bill");
-		a.setPassword("bill");
-		a.setGenre("Rock");
+		a.setUsername("tom");
+		a.setPassword("tom");
+		a.setGenre("Punk");
 		a.setWebsite("DankMeme.com");
 		a.setAccountType(1);
 		sess.save(a);
