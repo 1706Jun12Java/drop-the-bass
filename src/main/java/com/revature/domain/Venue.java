@@ -1,12 +1,13 @@
 package com.revature.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Venue")
-public class Venue {
+public class Venue implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VenueIDSeq")
 	@SequenceGenerator(allocationSize = 1, name = "VenueIDSeq", sequenceName = "VenueIDSeq")
@@ -14,8 +15,7 @@ public class Venue {
 	private long id;
 	@Column(name = "ADDRESS")
 	private String address;
-	@Column(name = "OWNED_BY")
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "OWNED_BY")
 	private VenueOwner venueOwner;
 	@Column(name = "VENUE_NAME")
@@ -23,7 +23,7 @@ public class Venue {
 	@Column(name = "WEBSITE")
 	private String website;
 	@ManyToMany(cascade=CascadeType.ALL,mappedBy="venues")
-	@JoinTable(name = "VENUE_EVENT", joinColumns = { @JoinColumn(name = "VenueID") }, inverseJoinColumns = { @JoinColumn(name = "EventID") })
+	//@JoinTable(name = "VENUE_EVENT", joinColumns = { @JoinColumn(name = "VenueID") }, inverseJoinColumns = { @JoinColumn(name = "EventID") })
 	List<Event> events;
 	public long getId() {
 		return id;
