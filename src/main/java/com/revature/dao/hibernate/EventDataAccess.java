@@ -6,7 +6,6 @@ import com.revature.domain.Event;
 import com.revature.util.HibernateUtil;
 import org.hibernate.Session;
 
-//TODO Finish implementing and add wrapper class
 public class EventDataAccess implements EventDao
 {
     private Session session = HibernateUtil.getSession();

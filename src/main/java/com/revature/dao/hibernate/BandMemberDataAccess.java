@@ -6,7 +6,6 @@ import com.revature.domain.BandMember;
 import com.revature.util.HibernateUtil;
 import org.hibernate.Session;
 
-//TODO Finish implementing and add wrapper class
 public class BandMemberDataAccess implements BandMemberDao
 {
     private Session session = HibernateUtil.getSession();

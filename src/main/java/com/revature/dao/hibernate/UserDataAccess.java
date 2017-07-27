@@ -6,7 +6,6 @@ import com.revature.domain.User;
 import com.revature.util.HibernateUtil;
 import org.hibernate.Session;
 
-//TODO Finish implementing and add wrapper class
 public class UserDataAccess implements UserDao
 {
     private Session session = HibernateUtil.getSession();
