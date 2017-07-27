@@ -1,10 +1,9 @@
 package com.revature.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
-
-import javax.persistence.*;
 @Entity
 @Table(name="Event_TABLE")
 public class Event implements Serializable{
