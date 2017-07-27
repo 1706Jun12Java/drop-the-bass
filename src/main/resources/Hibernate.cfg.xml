@@ -4,7 +4,9 @@
 		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<!--Other sensitive properties are in a properties file (I.E username, password, etc) -->
+		<property name="hibernate.connection.username"></property>
+		<property name="hibernate.connection.password"></property>
+		<property name="hibernate.connection.url"></property>
 		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
 
