@@ -4,13 +4,13 @@
 		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<property name="hibernate.connection.username">bob</property>
-		<property name="hibernate.connection.password">bob</property>
-		<property name="hibernate.connection.url">jdbc:oracle:thin:@myrevaturedb.cehb5rwvbkhl.us-east-1.rds.amazonaws.com:1521:ORCL</property>
+		<!--Other sensitive properties are in a properties file (I.E username, password, etc) -->
 		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+
 		<!-- this is very noisy in the console -->
-		<property name="hibernate.show_sql"></property>
+		<!--<property name="hibernate.show_sql">true</property>-->
+
 		<!-- creates database if "create", keeps existing structure and values if "update" or nothing -->
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<!-- map domain object classes -->
