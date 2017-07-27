@@ -5,8 +5,9 @@ import com.revature.domain.User;
 
 public interface UserDao
 {
-    int createUser(String username, String password, int accountType);
+    int createUser(User user);
 
     User getUserById(int id);
 
+    boolean loginAuth (String username, String password);
 }
