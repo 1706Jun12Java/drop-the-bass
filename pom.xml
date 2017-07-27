@@ -18,7 +18,7 @@
         <artifactId>maven-war-plugin</artifactId>
         <version>3.0.0</version>
         <configuration>
-          <warSourceDirectory>src/main/webapp</warSourceDirectory>
+          <warSourceDirectory>target</warSourceDirectory>
         </configuration>
       </plugin>
     </plugins> 
