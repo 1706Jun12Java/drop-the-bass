@@ -1,9 +1,8 @@
 package com.revature.domain;
 
+import com.revature.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
-import com.revature.util.HibernateUtil;
 
 public class TestDomain {
 //Test class for  seeing if the table structures are actually doing what they should
