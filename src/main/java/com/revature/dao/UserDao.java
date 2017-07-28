@@ -22,7 +22,6 @@ public interface UserDao
     {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
-
     /**
      * Compare the password and hash to check if they match
      *
