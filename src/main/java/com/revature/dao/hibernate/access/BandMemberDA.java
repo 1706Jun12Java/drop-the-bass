@@ -1,8 +1,8 @@
-package com.revature.dao.hibernate.access;
+package main.java.com.revature.dao.hibernate.access;
 
 
-import com.revature.dao.hibernate.BandMemberDataAccess;
-import com.revature.domain.BandMember;
+import main.java.com.revature.dao.hibernate.BandMemberDataAccess;
+import main.java.com.revature.domain.BandMember;
 
 
 /**

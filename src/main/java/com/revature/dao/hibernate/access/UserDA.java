@@ -1,8 +1,8 @@
-package com.revature.dao.hibernate.access;
+package main.java.com.revature.dao.hibernate.access;
 
 
-import com.revature.dao.hibernate.UserDataAccess;
-import com.revature.domain.User;
+import main.java.com.revature.dao.hibernate.UserDataAccess;
+import main.java.com.revature.domain.User;
 
 /**
  * Wrapper class of User Data Access

@@ -16,12 +16,12 @@
 		<!-- creates database if "create", keeps existing structure and values if "update" or nothing -->
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<!-- map domain object classes -->
-		<mapping class="com.revature.domain.Artist"/>
-		<mapping class="com.revature.domain.BandMember"/>
-		<mapping class="com.revature.domain.Venue"/>
-		<mapping class="com.revature.domain.User"/>
-		<mapping class="com.revature.domain.VenueOwner"/>
-		<mapping class="com.revature.domain.Event"/>
+		<mapping class="main.java.com.revature.domain.Artist"/>
+		<mapping class="main.java.com.revature.domain.BandMember"/>
+		<mapping class="main.java.com.revature.domain.Venue"/>
+		<mapping class="main.java.com.revature.domain.User"/>
+		<mapping class="main.java.com.revature.domain.VenueOwner"/>
+		<mapping class="main.java.com.revature.domain.Event"/>
 	
 	</session-factory>
 </hibernate-configuration>

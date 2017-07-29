@@ -1,7 +1,7 @@
-package com.revature.dao;
+package main.java.com.revature.dao;
 
 
-import com.revature.domain.BandMember;
+import main.java.com.revature.domain.BandMember;
 
 public interface BandMemberDao
 {

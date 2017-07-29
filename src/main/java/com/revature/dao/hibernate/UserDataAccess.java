@@ -1,9 +1,9 @@
-package com.revature.dao.hibernate;
+package main.java.com.revature.dao.hibernate;
 
 
-import com.revature.dao.UserDao;
-import com.revature.domain.User;
-import com.revature.util.HibernateUtil;
+import main.java.com.revature.dao.UserDao;
+import main.java.com.revature.domain.User;
+import main.java.com.revature.util.HibernateUtil;
 import org.hibernate.Session;
 
 public class UserDataAccess implements UserDao
