@@ -1,9 +1,8 @@
-package com.revature.domain;
-
-import java.io.Serializable;
-import java.util.List;
+package main.java.com.revature.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "Venue")

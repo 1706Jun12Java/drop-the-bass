@@ -1,8 +1,8 @@
-package com.revature.dao.hibernate;
+package main.java.com.revature.dao.hibernate;
 
-import com.revature.dao.VenueDao;
-import com.revature.domain.Venue;
-import com.revature.util.HibernateUtil;
+import main.java.com.revature.dao.VenueDao;
+import main.java.com.revature.domain.Venue;
+import main.java.com.revature.util.HibernateUtil;
 import org.hibernate.Session;
 
 public class VenueDataAccess implements VenueDao

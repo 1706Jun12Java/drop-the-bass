@@ -1,6 +1,6 @@
-package com.revature.domain;
+package main.java.com.revature.domain;
 
-import com.revature.util.HibernateUtil;
+import main.java.com.revature.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

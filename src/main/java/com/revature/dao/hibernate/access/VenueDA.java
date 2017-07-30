@@ -1,8 +1,8 @@
-package com.revature.dao.hibernate.access;
+package main.java.com.revature.dao.hibernate.access;
 
 
-import com.revature.dao.hibernate.VenueDataAccess;
-import com.revature.domain.Venue;
+import main.java.com.revature.dao.hibernate.VenueDataAccess;
+import main.java.com.revature.domain.Venue;
 
 /**
  * Wrapper class for Venue model Data Access

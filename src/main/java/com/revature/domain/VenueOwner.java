@@ -1,11 +1,8 @@
-package com.revature.domain;
-
-import java.io.Serializable;
-import java.util.List;
+package main.java.com.revature.domain;
 
 import javax.persistence.*;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import java.io.Serializable;
+import java.util.List;
 @Entity
 @Table(name= "VenueOwner")
 @PrimaryKeyJoinColumn(name = "OWNER_ID", referencedColumnName = "USER_ID")

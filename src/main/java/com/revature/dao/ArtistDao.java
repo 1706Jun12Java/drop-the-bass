@@ -1,4 +1,4 @@
-package com.revature.dao;
+package main.java.com.revature.dao;
 
 
 public interface ArtistDao
