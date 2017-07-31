@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Information</title>
+</head>
+<body>
+<form th:action="'/edit/' + ${artist.id}" th:object="${artist}" method="post">
+    <input th:field="${artist.website}" placeholder="Your website">
+    <br>
+    <input th:field="${artist.genre}" placeholder="Genre">
+    <br>
+    <input th:field="${artist.soundCloudURL}" placeholder="URL to your song in SoundCloud">
+    <br>
+    <button>Update</button>
+</form>
+</body>
+</html>
