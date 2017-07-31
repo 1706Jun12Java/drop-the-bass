@@ -1,9 +1,8 @@
-package com.revature.domain;
-
-import java.io.Serializable;
-import java.util.List;
+package main.java.com.revature.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "ARTIST")
@@ -13,9 +12,9 @@ public class Artist extends User implements Serializable{
 	private String website;
 	@Column(name = "GENRE")
 	private String genre;
-	@Column(name = "SOUND_URL",nullable = true)
+	@Column(name = "SOUND_URL")
 	private String soundCloudURL;
-	@OneToMany(mappedBy="id",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="artist",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<BandMember> members;
 	public String getWebsite() {
 		return website;

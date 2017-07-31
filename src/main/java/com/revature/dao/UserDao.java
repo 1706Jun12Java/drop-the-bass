@@ -1,7 +1,7 @@
-package com.revature.dao;
+package main.java.com.revature.dao;
 
 
-import com.revature.domain.User;
+import main.java.com.revature.domain.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 public interface UserDao
@@ -22,7 +22,6 @@ public interface UserDao
     {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
-
     /**
      * Compare the password and hash to check if they match
      *

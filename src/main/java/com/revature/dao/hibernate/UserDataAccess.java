@@ -1,10 +1,13 @@
-package com.revature.dao.hibernate;
+package main.java.com.revature.dao.hibernate;
 
 
-import com.revature.dao.UserDao;
-import com.revature.domain.User;
-import com.revature.util.HibernateUtil;
+import main.java.com.revature.dao.UserDao;
+import main.java.com.revature.domain.User;
+import main.java.com.revature.util.HibernateUtil;
+import org.hibernate.Query;
 import org.hibernate.Session;
+
+import java.util.List;
 
 public class UserDataAccess implements UserDao
 {
@@ -12,7 +15,8 @@ public class UserDataAccess implements UserDao
 
     public static String hashPassword(String password)
     {
-        return null;
+        return UserDao.hashPassword(password);
+
     }
 
     @Override
@@ -36,6 +40,22 @@ public class UserDataAccess implements UserDao
     @Override
     public boolean loginAuth(String username, String password)
     {
+        if(username == null || username.length() > 32 || username.length() < 4){
+            return false;
+        } else if(password == null || password.length() > 32 || password.length() < 4){
+            return false;
+        }
+        Query q = session.createQuery("from User where username = :i");
+        q.setParameter("i",username);
+        List<User> list = q.list();
+        if(!list.isEmpty()) {
+            User u = list.get(0);
+            boolean validPassword = UserDao.checkPassword(password,u.getPassword());
+            if(validPassword){
+                return true;
+            }
+        }
         return false;
     }
-}
+    }
+

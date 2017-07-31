@@ -4,9 +4,6 @@
 		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<property name="hibernate.connection.username"/>
-		<property name="hibernate.connection.password"/>
-		<property name="hibernate.connection.url"/>
 		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
 
@@ -16,12 +13,12 @@
 		<!-- creates database if "create", keeps existing structure and values if "update" or nothing -->
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<!-- map domain object classes -->
-		<mapping class="com.revature.domain.Artist"/>
-		<mapping class="com.revature.domain.BandMember"/>
-		<mapping class="com.revature.domain.Venue"/>
-		<mapping class="com.revature.domain.User"/>
-		<mapping class="com.revature.domain.VenueOwner"/>
-		<mapping class="com.revature.domain.Event"/>
+		<mapping class="main.java.com.revature.domain.Artist"/>
+		<mapping class="main.java.com.revature.domain.BandMember"/>
+		<mapping class="main.java.com.revature.domain.Venue"/>
+		<mapping class="main.java.com.revature.domain.User"/>
+		<mapping class="main.java.com.revature.domain.VenueOwner"/>
+		<mapping class="main.java.com.revature.domain.Event"/>
 	
 	</session-factory>
 </hibernate-configuration>
