@@ -14,7 +14,7 @@ public class Artist extends User implements Serializable{
 	private String genre;
 	@Column(name = "SOUND_URL")
 	private String soundCloudURL;
-	@OneToMany(mappedBy="id",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="artist",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<BandMember> members;
 	public String getWebsite() {
 		return website;
