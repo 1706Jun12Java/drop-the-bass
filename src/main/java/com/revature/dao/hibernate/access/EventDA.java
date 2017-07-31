@@ -1,8 +1,8 @@
-package com.revature.dao.hibernate.access;
+package main.java.com.revature.dao.hibernate.access;
 
 
-import com.revature.dao.hibernate.EventDataAccess;
-import com.revature.domain.Event;
+import main.java.com.revature.dao.hibernate.EventDataAccess;
+import main.java.com.revature.domain.Event;
 
 public class EventDA
 {

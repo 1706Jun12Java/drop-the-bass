@@ -1,4 +1,4 @@
-package com.revature.domain;
+package main.java.com.revature.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;

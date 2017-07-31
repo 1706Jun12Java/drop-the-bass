@@ -1,8 +1,7 @@
-package com.revature.domain;
-
-import java.io.Serializable;
+package main.java.com.revature.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 @Entity
 @Table(name = "BAND_MEMBER")
 public class BandMember implements Serializable{
