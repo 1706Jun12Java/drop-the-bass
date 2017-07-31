@@ -12,11 +12,33 @@
     <mvc:annotation-driven />
 
     <!--Enable static resources-->
-    <mvc:resources mapping="/views/**" location="WEB-INF/views/" />
+    <!--<mvc:resources mapping="/views/**" location="WEB-INF/views/" />-->
+    <mvc:resources mapping="/images/**" location="WEB-INF/public/images/" />
+    <mvc:resources mapping="/css/**" location="WEB-INF/public/css/" />
+    <mvc:resources mapping="/js/**" location="WEB-INF/public/js/" />
 
     <!--View resolver-->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
-        <property name="prefix" value="/views/" />
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" >-->
+        <!--<property name="prefix" value="/views/" />-->
+        <!--<property name="suffix" value=".html" />-->
+    <!--</bean>-->
+
+    <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="WEB-INF/views/" />
         <property name="suffix" value=".html" />
+        <!--This is True by default -->
+        <property name="cacheable" value="true" />
+    </bean>
+
+    <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
+        <!--Can speed up execution but might not be backward compatible in some cases-->
+        <!--Default is false-->
+        <property name="enableSpringELCompiler" value="true" />
+    </bean>
+
+    <!--Thymeleaf view resolver-->
+    <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver" >
+        <property name="templateEngine" ref="templateEngine" />
     </bean>
 </beans>

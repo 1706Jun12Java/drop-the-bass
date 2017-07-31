@@ -8,6 +8,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class HibernateUtil
@@ -17,10 +18,15 @@ public class HibernateUtil
     private static SessionFactory sessionFactory()
     {
         Properties prop = new Properties();
+        boolean propFound = false;
 
         try
         {
-            prop.load(HibernateUtil.class.getClassLoader().getResourceAsStream("hibernate.properties"));
+            InputStream resourceAsStream = HibernateUtil.class.getClassLoader().getResourceAsStream("hibernate.properties");
+            if(resourceAsStream != null) {
+                prop.load(resourceAsStream);
+                propFound = true;
+            }
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -28,7 +34,7 @@ public class HibernateUtil
 
         Configuration c = new Configuration().configure("Hibernate.cfg.xml");
 
-        if (prop != null)
+        if (propFound)
             c.mergeProperties(prop);
         else
         {

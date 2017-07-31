@@ -13,9 +13,9 @@ public class VenueOwner extends User implements Serializable{
 	private String lastName;
 	@Column(name = "PHONE_NUMBER")
 	private String phoneNumber;
-	@OneToMany(mappedBy="id",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="venueOwner",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<Venue> venues;
-	@OneToMany(mappedBy="id",fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="venueOwner",fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<Event> events;
 	
 	
