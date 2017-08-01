@@ -14,6 +14,10 @@ public class IndexController
     {
         return "index";
     }
+    @RequestMapping(value="/dashboard",method = RequestMethod.GET)
+    public String dashboardPage(Model m){
+        return "VODashboard";
+    }
 
     @RequestMapping(value="/login",method = RequestMethod.GET)
     public String loginPage(Model m){
