@@ -7,7 +7,6 @@ $(document).ready(function(){
      *
      * @type {{flagAdd: boolean, elements: string[], add: Function, remove: Function}}
      */
-    window.alert("Were in the function");
     var myNavBar = {
 
         flagAdd: true,
@@ -52,7 +51,6 @@ $(document).ready(function(){
      * of the scroll
      */
     function offSetManager() {
-
         var yOffset = 0;
         var currYOffSet = window.pageYOffset;
 
