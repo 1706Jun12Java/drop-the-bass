@@ -4,13 +4,14 @@ package main.java.com.revature.dao;
 import main.java.com.revature.domain.User;
 import org.mindrot.jbcrypt.BCrypt;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface UserDao
 {
     int createUser(User user);
 
     User getUserById(int id);
 
-    boolean loginAuth(String username, String password);
 
     /**
      * Hash the password given. Includes a salt
@@ -33,4 +34,6 @@ public interface UserDao
     {
         return BCrypt.checkpw(password, hashed);
     }
+
+    boolean loginAuth(String username, String password, HttpServletRequest request);
 }

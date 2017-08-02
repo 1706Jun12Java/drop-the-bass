@@ -8,6 +8,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class UserDataAccess implements UserDao
@@ -39,20 +41,18 @@ public class UserDataAccess implements UserDao
     }
 
     @Override
-    public boolean loginAuth(String username, String password)
+    public boolean loginAuth(String username, String password, HttpServletRequest request)
     {
-        if(username == null || username.length() > 32 || username.length() < 4){
-            return false;
-        } else if(password == null || password.length() > 32 || password.length() < 4){
-            return false;
-        }
         Query q = session.createQuery("from User where username = :i");
         q.setParameter("i",username);
         List<User> list = q.list();
         if(!list.isEmpty()) {
             User u = list.get(0);
             boolean validPassword = UserDao.checkPassword(password,u.getPassword());
-            if(validPassword){
+            if(validPassword) {
+                HttpSession session = request.getSession();
+                session.setAttribute("userID",u.getId());
+                session.setAttribute("accountType",u.getAccountType());
                 return true;
             }
         }

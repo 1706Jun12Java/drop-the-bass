@@ -6,6 +6,8 @@ import main.java.com.revature.domain.Artist;
 import main.java.com.revature.domain.User;
 import main.java.com.revature.domain.VenueOwner;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Wrapper class of User Data Access
  */
@@ -60,5 +62,5 @@ public class UserDA
         return new UserDataAccess().getUserById(id);
     }
 
-    public static boolean loginAuth(String username, String password){return new UserDataAccess().loginAuth(username,password); }
+    public static boolean loginAuth(String username, String password, HttpServletRequest request){return new UserDataAccess().loginAuth(username,password,request); }
 }
