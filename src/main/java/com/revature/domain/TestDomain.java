@@ -24,7 +24,7 @@ public class TestDomain {
 		a.setPassword("tom");
 		a.setGenre("Punk");
 		a.setWebsite("DankMeme.com");
-		a.setAccountType(1);
+		a.setAccountType("Artist");
 		sess.save(a);
 		tx.commit();
 		sess.close();

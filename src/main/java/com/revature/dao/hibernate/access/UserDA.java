@@ -2,7 +2,11 @@ package main.java.com.revature.dao.hibernate.access;
 
 
 import main.java.com.revature.dao.hibernate.UserDataAccess;
+import main.java.com.revature.domain.Artist;
 import main.java.com.revature.domain.User;
+import main.java.com.revature.domain.VenueOwner;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Wrapper class of User Data Access
@@ -20,24 +24,33 @@ public class UserDA
         return new UserDataAccess().createUser(user);
     }
 
-    public static boolean registerUser(String username, String password, String accountType){
-        if(username == null || username.length() > 32 || username.length() < 4){
-            return false;
-        } else if(password == null || password.length() > 32 || password.length() < 4){
-            return false;
-        }
+    public static int registerUser(String username, String password, String accountType){
         switch(accountType){
-            case "artist": createArtist();
-            break;
-            case "venueowner": createVenueOwner();
-            break;
+            case "artist":return createArtist(username,password,accountType);
+            case "venueowner": return createVenueOwner(username,password,accountType);
         }
-        return false;
+        return -1;
     }
 
-    private static void createArtist(){ }
+    private static int createArtist(String username,String password,String accountType){
+        String hashedWord = UserDataAccess.hashPassword(password);
+        Artist a = new Artist();
+        a.setUsername(username);
+        a.setPassword(hashedWord);
+        a.setAccountType(accountType);
+        int id = save(a);
+        return id;
+    }
 
-    private static void createVenueOwner(){ }
+    private static int createVenueOwner(String username, String password,String accountType){
+        String hashedWord = UserDataAccess.hashPassword(password);
+        VenueOwner vo = new VenueOwner();
+        vo.setUsername(username);
+        vo.setPassword(hashedWord);
+        vo.setAccountType(accountType);
+        int id = save(vo);
+        return id;
+         }
     /**
      * Find a user by its id
      *
@@ -49,5 +62,5 @@ public class UserDA
         return new UserDataAccess().getUserById(id);
     }
 
-    public static boolean loginAuth(String username, String password){return new UserDataAccess().loginAuth(username,password); }
+    public static boolean loginAuth(String username, String password, HttpServletRequest request){return new UserDataAccess().loginAuth(username,password,request); }
 }
