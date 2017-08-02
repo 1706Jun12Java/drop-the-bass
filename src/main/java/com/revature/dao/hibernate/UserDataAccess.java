@@ -6,6 +6,7 @@ import main.java.com.revature.domain.User;
 import main.java.com.revature.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -22,10 +23,11 @@ public class UserDataAccess implements UserDao
     @Override
     public int createUser(User user)
     {
-        int id = (int) session.save(user);
+        Transaction tx = session.beginTransaction();
+        session.persist(user);
+        tx.commit();
         session.close();
-
-        return id;
+        return user.getId();
     }
 
     @Override
@@ -33,7 +35,6 @@ public class UserDataAccess implements UserDao
     {
         User user = (User) session.get(User.class, id);
         session.close();
-
         return user;
     }
 

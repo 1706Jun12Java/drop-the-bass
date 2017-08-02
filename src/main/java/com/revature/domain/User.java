@@ -17,7 +17,7 @@ public class User implements Serializable{
 	@Column(name = "USERPASS")
 	private String password;
 	@Column(name = "ACCOUNTTYPE")
-	private int accountType;
+	private String accountType;
 	public int getId() {
 		return id;
 	}
@@ -36,10 +36,10 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getAccountType() {
+	public String getAccountType() {
 		return accountType;
 	}
-	public void setAccountType(int accountType) {
+	public void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
 	
