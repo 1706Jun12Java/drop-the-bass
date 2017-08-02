@@ -12,10 +12,22 @@ public class Artist extends User implements Serializable{
 	private String website;
 	@Column(name = "GENRE")
 	private String genre;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Column(name = "SOUND_URL")
 	private String soundCloudURL;
 	@OneToMany(mappedBy="artist",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<BandMember> members;
+	@Column(name = "DESCRIPTION")
+	private String description;
+
 	public String getWebsite() {
 		return website;
 	}

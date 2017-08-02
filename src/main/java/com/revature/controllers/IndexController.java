@@ -46,9 +46,8 @@ public class IndexController
             if(UserDA.loginAuth(user.getUsername(),user.getPassword(),request)){
                 HttpSession session = request.getSession();
                 String accountType = (String) session.getAttribute("accountType");
-                System.out.println(accountType);
                 switch(accountType){
-                    case "artist": return "ArtistSettings";
+                    case "artist": return "redirect:/asettings";
                     case "venueowner": return "VOSettings";
                 }
             }
@@ -57,7 +56,6 @@ public class IndexController
         }
         return "redirect:/loginError";
     }
-
 
     @RequestMapping(value = "/registerUser", method = RequestMethod.POST)
     public String userRegistration(HttpServletRequest request, HttpServletResponse response, User user, BindingResult bindingResult){

@@ -56,7 +56,6 @@ public class BandMember implements Serializable{
 	}
 
 	@Column(name = "LASTNAME")
-
 	private String lastName;
 	@Column(name = "PHONE")
 	private String phoneNumber;
