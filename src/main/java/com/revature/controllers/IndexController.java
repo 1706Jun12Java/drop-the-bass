@@ -1,10 +1,13 @@
 package main.java.com.revature.controllers;
 
 import main.java.com.revature.dao.hibernate.access.UserDA;
+import main.java.com.revature.domain.Artist;
 import main.java.com.revature.domain.User;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class IndexController
 {
+    private static final Logger LOGGER = Logger.getLogger(IndexController.class);
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model m)
@@ -61,5 +65,35 @@ public class IndexController
     public String userRegistration(HttpServletRequest request, HttpServletResponse response, User user, BindingResult bindingResult){
         UserDA.registerUser(user.getUsername(),user.getPassword(),user.getAccountType());
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.GET)
+    public String uploadPage(Model model)
+    {
+        Artist artist = new Artist();
+        artist.setPicture("Set picture");
+        model.addAttribute("fileName", artist);
+        return "upload";
+    }
+
+    @RequestMapping(value = "/upload-save", method = RequestMethod.POST)
+    public String upload(HttpServletRequest req, HttpServletResponse res, @ModelAttribute(value = "fileName") Artist a)
+    {
+
+        System.out.println("Trying to save");
+        LOGGER.info("file url is: " + a.getPicture() );
+        LOGGER.info("file url is: " + a.getGenre() );
+        LOGGER.info("file url is: " + a.getSoundCloudURL() );
+        LOGGER.info("file url is: " + a.getWebsite() );
+        LOGGER.info("file url is: " + a.getDescription() );
+        return "redirect:/upload";
+
+//        HttpSession session = req.getSession(false);
+//        if (session != null)
+//        {
+//
+//        }
+//        else
+//            return "redirect:/"; // Login is in index page
     }
 }
