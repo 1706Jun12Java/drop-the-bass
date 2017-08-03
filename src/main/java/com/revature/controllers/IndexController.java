@@ -22,6 +22,14 @@ public class IndexController
         m.addAttribute("newUser",new User());
         return "Login";
     }
+
+    @RequestMapping(value="/logout",method = RequestMethod.GET)
+    public String logOut(HttpServletRequest request,Model m){
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "redirect:/";
+    }
+
     @RequestMapping(value="/dashboard",method = RequestMethod.GET)
     public String dashboardPage(Model m){
         return "VODashboard";
