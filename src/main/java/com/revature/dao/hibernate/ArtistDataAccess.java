@@ -16,7 +16,6 @@ public class ArtistDataAccess implements ArtistDao
     {
         Artist artist = (Artist) session.get(Artist.class, id);
         session.close();
-
         return artist;
     }
 

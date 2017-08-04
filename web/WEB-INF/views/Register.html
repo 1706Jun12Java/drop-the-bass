@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="app" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -13,31 +13,41 @@
 <body>
 <div class="col-md-6 col-md-offset-3">
     <h2>Register</h2>
-    <form name="form" ng-submit="vm.register()" role="form">
-        <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+    <form name="form" role="form"  th:action="@{/registerUser}" th:method="post" th:object="${newUser}">
+        <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && (form.username.$error.required || form.username.$error.minlength || form.username.$error.maxlength)}">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" class="form-control" ng-model="vm.user.username" required />
-            <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+            <input type="email" name="username" id="username" class="form-control" ng-model="user.regiName" ng-minlength="3" ng-maxlength="32" th:field="${newUser.username}"required />
+            <span ng-show="form.username.$dirty && (form.username.$error.email || form.username.$error.required)" class="help-block">Username is invalid</span>
+            <span ng-show="form.username.$dirty && form.username.$error.minlength" class="help-block">Username is too short</span>
+            <span ng-show="form.username.$dirty && form.username.$error.maxlength" class="help-block">Username is too long</span>
         </div>
-        <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+        <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && (form.password.$error.required || form.password.$error.minlength ||  form.password.$error.maxlength)}">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="form-control" ng-model="vm.user.password" required />
-            <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+            <input type="password" name="password" id="password" class="form-control" ng-model="user.regiPass" ng-minlength="3" ng-maxlength="32" th:field="${newUser.password}" required/>
+            <span ng-show="form.password.$dirty && form.password.$error.minlength" class="help-block">Password is too short</span>
+            <span ng-show="form.password.$dirty && form.password.$error.maxlength" class="help-block">Password is too long</span>
         </div>
-        <div>
+        <div class="form-group" ng-class="{ 'has-error': form.confirmpassword.$dirty && (form.confirmpassword.$error.pattern || form.confirmpassword.$error.required)}">
+                <label for="password">Confirm Password</label>
+                <input type="password" name="confirmpassword" id="confirmpassword" class="form-control" ng-pattern = "user.regiPass" ng-model="user.confirmregiPass" ng-minlength="3" ng-maxlength="32"  required/>
+                <span ng-show="form.confirmpassword.$dirty && form.confirmpassword.$error.pattern" class="help-block">Password does not match</span>
+            </div>
+            <div>
             <label for = singleSelect>Account Type</label><br>
-            <select name="singleSelect" id="singleSelect">
-                <option value="">---Please select---</option> <!-- not selected / blank option -->
-                <option value="Artist">Artist</option> <!-- interpolation -->
-                <option value="VenueOwner">Venue Owner</option>
+            <select name="singleSelect" id="singleSelect" th:field="${newUser.accountType}">
+                <option value="artist">Artist</option> <!-- interpolation -->
+                <option value="venueowner">Venue Owner</option>
             </select><br>
         </div>
         <br>
         <div class="form-actions">
-            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Register</button>
-            <a href="/login" class="btn btn-link">Cancel</a>
+            <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Register</button>
+            <a href="/" class="btn btn-link">Cancel</a>
         </div>
     </form>
 </div>
+<script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script th:src="@{/js/LoginController.js}"></script>
 </body>
 </html>
