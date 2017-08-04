@@ -11,7 +11,7 @@
 		<!--<property name="hibernate.show_sql">true</property>-->
 
 		<!-- creates database if "create", keeps existing structure and values if "update" or nothing -->
-		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.hbm2ddl.auto">create</property>
 		<!-- map domain object classes -->
 		<mapping class="main.java.com.revature.domain.Artist"/>
 		<mapping class="main.java.com.revature.domain.BandMember"/>

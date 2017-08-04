@@ -30,10 +30,6 @@ public class IndexController
         return "redirect:/";
     }
 
-    @RequestMapping(value="/dashboard",method = RequestMethod.GET)
-    public String dashboardPage(Model m){
-        return "VODashboard";
-    }
 
     @RequestMapping(value="/loginError",method = RequestMethod.GET)
     public String loginPage(Model m){
@@ -56,7 +52,7 @@ public class IndexController
                 String accountType = (String) session.getAttribute("accountType");
                 switch(accountType){
                     case "artist": return "redirect:/asettings";
-                    case "venueowner": return "VOSettings";
+                    case "venueowner": return "redirect:/dashboard";
                 }
             }
         } else {
