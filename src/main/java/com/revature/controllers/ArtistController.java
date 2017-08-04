@@ -5,7 +5,6 @@ import main.java.com.revature.dao.UserDao;
 import main.java.com.revature.dao.hibernate.ArtistDataAccess;
 import main.java.com.revature.dao.hibernate.UserDataAccess;
 import main.java.com.revature.dao.hibernate.access.ArtistDA;
-import main.java.com.revature.dao.hibernate.access.UserDA;
 import main.java.com.revature.domain.Artist;
 import main.java.com.revature.domain.BandMember;
 import org.apache.log4j.Logger;
@@ -30,13 +29,15 @@ public class ArtistController
     public String editArtistInfo(HttpServletRequest request, Model model)
     {
         LOGGER.debug("In edit artist method");
-        //TODO Figure out how to find id through session
+
         HttpSession sess = request.getSession(false);
         if(sess!=null) {
             int id = (int) sess.getAttribute("userID");
             Artist a = ArtistDA.getArtistById(id);
             model.addAttribute("artist", a);
         }
+
+        LOGGER.debug("Session was null. Nothing was changes.");
         return "ArtistSettings";
     }
 

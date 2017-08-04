@@ -13,13 +13,8 @@ public class Artist extends User implements Serializable{
 	@Column(name = "GENRE")
 	private String genre;
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	@Column(name = "PIC_URL")
+	private String pictureURL;
 
 	@Column(name = "SOUND_URL")
 	private String soundCloudURL;
@@ -62,5 +57,20 @@ public class Artist extends User implements Serializable{
 	public void setMembers(List<BandMember> members) {
 		this.members = members;
 	}
-	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getPicture()
+	{
+		return pictureURL;
+	}
+
+	public void setPicture(String pictureURL)
+	{
+		this.pictureURL = pictureURL;
+	}
 }
