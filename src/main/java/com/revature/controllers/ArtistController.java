@@ -7,13 +7,12 @@ import main.java.com.revature.dao.hibernate.UserDataAccess;
 import main.java.com.revature.dao.hibernate.access.ArtistDA;
 import main.java.com.revature.domain.Artist;
 import main.java.com.revature.domain.BandMember;
+import main.java.com.revature.util.S3Util;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,6 +34,8 @@ public class ArtistController
             int id = (int) sess.getAttribute("userID");
             Artist a = ArtistDA.getArtistById(id);
             model.addAttribute("artist", a);
+        }else {
+            return"redirect:/";
         }
 
         LOGGER.debug("Session was null. Nothing was changes.");
@@ -53,12 +54,14 @@ public class ArtistController
             model.addAttribute("artist", a);
             List<BandMember> temp = new ArrayList<BandMember>();
 
+        }else {
+            return"redirect:/";
         }
         return "ArtistProfile";
     }
 
     @RequestMapping(value = "/updateArtist" ,method=RequestMethod.POST)
-    public String updateArtist(HttpServletRequest request, Model model,Artist artist){
+    public String updateArtist(@RequestParam(value = "pic") MultipartFile file,HttpServletRequest request, Model model, Artist artist){
         HttpSession sess = request.getSession(false);
         if(sess!=null) {
             int id = (int) sess.getAttribute("userID");
@@ -82,8 +85,14 @@ public class ArtistController
                 if(!artist.getBandName().equalsIgnoreCase(dbArtist.getBandName())){
                     dbArtist.setBandName(artist.getBandName());
                 }
+                if(file != null) {
+                    String url = S3Util.uploadPicture(file, sess.getAttribute("userID").toString());
+                    artist.setPicture(url);
+                }
                 ArtistDA.update(dbArtist);
             }
+        }else {
+            return"redirect:/";
         }
         return "ArtistSettings";
     }

@@ -14,6 +14,17 @@ public class Venue implements Serializable{
 	private long id;
 	@Column(name = "ADDRESS")
 	private String address;
+
+	public String getPictureURL() {
+		return pictureURL;
+	}
+
+	public void setPictureURL(String pictureURL) {
+		this.pictureURL = pictureURL;
+	}
+
+	@Column(name = "PIC_URL")
+	private String pictureURL;
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "OWNED_BY")
 	private VenueOwner venueOwner;

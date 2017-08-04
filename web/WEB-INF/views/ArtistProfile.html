@@ -16,7 +16,7 @@
 <div class="container" th:object="${artist}">
     <div class="span3 well">
         <div style="text-align: center;">
-            <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img src="" name="aboutme" width="140" height="140" class="img-circle"></a>
+            <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img th:src="${artist.picture}" name="aboutme" width="140" height="140" class="img-circle"></a>
             <h3 th:text="${artist.bandName}"></h3>
             <em>click photo for more details</em>
         </div>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="modal-body">
                     <div style="text-align: center;">
-                        <img src= "" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+                        <img th:src="${artist.picture}" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
                         <h3 class="media-heading" th:text="${artist.bandName}"></h3>
                         <span><strong>Genre: </strong></span>
                         <span class="label label-warning" th:text="${artist.genre}"></span><br>
