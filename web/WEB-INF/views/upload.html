@@ -5,9 +5,8 @@
     <title>Upload</title>
 </head>
 <body>
-<h1>Quick test</h1>
-<form th:action="@{/upload-save}" th:object="${fileName}" method="post" enctype="multipart/form-data">
-    <input type="text" th:field="*{picture}">
+<form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+    <input type="file" name="picture">
     <button>Upload</button>
 </form>
 </body>

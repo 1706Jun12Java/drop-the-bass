@@ -14,7 +14,7 @@ public class Artist extends User implements Serializable{
 	private String genre;
 
 	@Column(name = "PIC_URL")
-	private String picture;
+	private String pictureURL;
 
 	@Column(name = "SOUND_URL")
 	private String soundCloudURL;
@@ -56,11 +56,11 @@ public class Artist extends User implements Serializable{
 
 	public String getPicture()
 	{
-		return picture;
+		return pictureURL;
 	}
 
-	public void setPicture(String picture)
+	public void setPicture(String pictureURL)
 	{
-		this.picture = picture;
+		this.pictureURL = pictureURL;
 	}
 }

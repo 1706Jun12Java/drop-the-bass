@@ -1,15 +1,18 @@
 package main.java.com.revature.controllers;
 
+import main.java.com.revature.dao.hibernate.access.ArtistDA;
 import main.java.com.revature.dao.hibernate.access.UserDA;
 import main.java.com.revature.domain.Artist;
 import main.java.com.revature.domain.User;
+import main.java.com.revature.util.S3Util;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,30 +73,36 @@ public class IndexController
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public String uploadPage(Model model)
     {
-        Artist artist = new Artist();
-        artist.setPicture("Set picture");
-        model.addAttribute("fileName", artist);
         return "upload";
     }
 
-    @RequestMapping(value = "/upload-save", method = RequestMethod.POST)
-    public String upload(HttpServletRequest req, HttpServletResponse res, @ModelAttribute(value = "fileName") Artist a)
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public String upload(@RequestParam(value = "picture") MultipartFile file, HttpServletRequest req)
     {
+        LOGGER.debug("Trying to save");
+        HttpSession session  = req.getSession(false);
 
-        System.out.println("Trying to save");
-        LOGGER.info("file url is: " + a.getPicture() );
-        LOGGER.info("file url is: " + a.getGenre() );
-        LOGGER.info("file url is: " + a.getSoundCloudURL() );
-        LOGGER.info("file url is: " + a.getWebsite() );
-        LOGGER.info("file url is: " + a.getDescription() );
-        return "redirect:/upload";
+        if (session != null )
+        {
+            if (session.getAttribute("user_id") != null)
+            {
+                Artist artist = ArtistDA.getArtistById((Integer) session.getAttribute("user_id") );
+                String url = S3Util.uploadPicture(file, session.getAttribute("user_id").toString() );
 
-//        HttpSession session = req.getSession(false);
-//        if (session != null)
-//        {
-//
-//        }
-//        else
-//            return "redirect:/"; // Login is in index page
+                artist.setPicture(url);
+                ArtistDA.update(artist);
+                LOGGER.debug("Save successful");
+
+                return "redirect:/";
+            }
+
+            LOGGER.debug("Session doesn't have a user_id");
+            return "redirect:/upload";
+        }
+        else
+        {
+            LOGGER.debug("There was no session");
+            return "redirect:/upload";
+        }
     }
 }
