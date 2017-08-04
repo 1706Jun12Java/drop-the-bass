@@ -1,10 +1,8 @@
 package main.java.com.revature.controllers;
 
 
-import main.java.com.revature.dao.hibernate.ArtistDataAccess;
 import main.java.com.revature.dao.hibernate.UserDataAccess;
 import main.java.com.revature.dao.hibernate.access.ArtistDA;
-import main.java.com.revature.dao.hibernate.access.UserDA;
 import main.java.com.revature.domain.Artist;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -26,14 +24,15 @@ public class ArtistController
     public String editArtistInfo(HttpServletRequest request, Model model)
     {
         LOGGER.debug("In edit artist method");
-        //TODO Figure out how to find id through session
+
         HttpSession sess = request.getSession(false);
         if(sess!=null) {
             int id = (int) sess.getAttribute("userID");
             Artist a = ArtistDA.getArtistById(id);
-            System.out.println(a.getUsername());
             model.addAttribute("artist", a);
         }
+
+        LOGGER.debug("Session was null. Nothing was changes.");
         return "ArtistSettings";
     }
     @RequestMapping(value = "/updateArtist" ,method=RequestMethod.POST)
