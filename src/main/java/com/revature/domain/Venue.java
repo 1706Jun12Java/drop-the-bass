@@ -1,9 +1,14 @@
 package main.java.com.revature.domain;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+@Indexed
 @Entity
 @Table(name = "Venue")
 public class Venue implements Serializable{
@@ -12,18 +17,24 @@ public class Venue implements Serializable{
 	@SequenceGenerator(allocationSize = 1, name = "VenueIDSeq", sequenceName = "VenueIDSeq")
 	@Column(name = "VenueID")
 	private long id;
+
+	@Field
 	@Column(name = "ADDRESS")
 	private String address;
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "OWNED_BY")
 	private VenueOwner venueOwner;
+
+	@Field
 	@Column(name = "VENUE_NAME")
 	private String name;
 	@Column(name = "WEBSITE")
 	private String website;
+
+	@IndexedEmbedded
 	@ManyToMany(cascade=CascadeType.ALL,mappedBy="venues")
 	//@JoinTable(name = "VENUE_EVENT", joinColumns = { @JoinColumn(name = "VenueID") }, inverseJoinColumns = { @JoinColumn(name = "EventID") })
-	List<Event> events;
+	private List<Event> events;
 	public long getId() {
 		return id;
 	}
