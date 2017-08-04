@@ -4,6 +4,8 @@ package main.java.com.revature.dao.hibernate.access;
 import main.java.com.revature.dao.hibernate.VenueDataAccess;
 import main.java.com.revature.domain.Venue;
 
+import java.util.List;
+
 /**
  * Wrapper class for Venue model Data Access
  */
@@ -29,5 +31,10 @@ public class VenueDA
     public static Venue getVenueById(int id)
     {
         return new VenueDataAccess().getVenueById(id);
+    }
+
+    public static List Search(String query)
+    {
+        return new VenueDataAccess().searchVenue(query);
     }
 }
