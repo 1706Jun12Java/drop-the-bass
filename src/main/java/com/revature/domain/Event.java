@@ -15,8 +15,12 @@ public class Event implements Serializable{
 	private long id;
 	@ManyToMany(cascade=CascadeType.ALL)
 	private List<Venue> venues;
+	@Column(name = "NAME")
+	private String name;
 	@Column(name = "DESCRIPTION")
 	private String description;
+
+
 	@Column(name = "EVENT_START")
 	private Timestamp start;
 	@Column(name = "EVENT_END")
@@ -24,7 +28,14 @@ public class Event implements Serializable{
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name ="CREATED_BY")
 	private VenueOwner venueOwner;
-	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	public long getId() {
 		return id;
 	}

@@ -23,29 +23,100 @@
     <!-- /.row -->
 
     <!-- Projects Row -->
-    <div class="row" ng-repeat="x in venues">
-        <div class="col-md-3 portfolio-item">
-            <a href="#">
-                <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-            </a>
+    <th:block th:each="venue,iter :${Venues}" th:object="${owner}">
+        <div class="span3 well">
+            <div style="text-align: center;">
+                <a data-toggle="modal" th:attr="data-target='#venue'+${venue.id}"><img th:src="${venue.pictureURL}" name="aboutme" width="140" height="140" class="img-circle"></a>
+                <h3 th:text="${venue.name}"></h3>
+                <em></em>
+            </div>
         </div>
-        <div class="col-md-3 portfolio-item">
-            <a href="#">
-                <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-            </a>
+        <!-- Modal -->
+        <div class="modal fade" th:id ="'venue'+${venue.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title" th:id ="'venue'+${venue.id}">Venue</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div style="text-align: center;">
+                            <img th:src="${venue.pictureURL}" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+                            <h3 class="media-heading" th:text="${venue.name}"></h3>
+                            <span><strong>Address: </strong></span>
+                            <span  th:text="${venue.address}"></span><br>
+                            <span><strong>Website: </strong></span>
+                            <span th:text="${venue.website}"></span><br>
+                            <span><strong>Owned By</strong></span>
+                            <span th:text="${owner.firstName}+' '+${owner.lastName}"></span><br>
+                            <span><strong>Contact Number</strong></span>
+                            <span th:text="${owner.phoneNumber}"></span><br>
+                        </div>
+                        <hr>
+                        <span><strong>Events </strong></span>
+                        <div style="text-align: center;">
+                            <p class="text-left" th:text="'SAMPLE TEXT'"></p><br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="text-align: center;">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-3 portfolio-item">
-            <a href="#">
-                <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-            </a>
-        </div>
-        <div class="col-md-3 portfolio-item">
-            <a href="#">
-                <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-            </a>
+    </th:block>
+
+    <div class="span3 well">
+        <div style="text-align: center;">
+            <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img src="http://www.clker.com/cliparts/4/Q/y/b/q/y/small-green-plus-sign-hi.png" name="aboutme" width="140" height="140" class="img-circle"></a>
+            <h3>Create new Venue</h3>
+            <em></em>
         </div>
     </div>
-    <!-- /.row -->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">New Venue</h4>
+                </div>
+                <div class="modal-body">
+                    <form name="form" role="form"  th:action="@{/createVenue}" enctype="multipart/form-data" th:method="post" th:object="${newVenue}">
+                        <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && (form.username.$error.required || form.username.$error.minlength)}">
+                            <label for="venuename">Venue Name</label>
+                            <input  name="venuename" id="venuename" class="form-control" ng-model="user.venueName" ng-minlength="3" ng-maxlength="32" required th:field ="${newVenue.name}" />
+                            <span ng-show="form.username.$dirty && (form.username.$error.required)" class="help-block">Name is required</span>
+                            <span ng-show="form.username.$dirty && form.username.$error.minlength" class="help-block">Name is too short</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" name="address" id="address" class="form-control" th:field = "${newVenue.address}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="website">Website</label>
+                            <input type="text" name="website" id="website" class="form-control" th:field = "${newVenue.website}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="pic">Upload Photo</label>
+                            <input type="file" name="pic" id="pic" class="form-control"/>
+                        </div>
+                        <br>
+                        <div class="form-actions">
+                            <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <hr>
