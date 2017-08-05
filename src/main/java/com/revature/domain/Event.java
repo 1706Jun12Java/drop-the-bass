@@ -12,7 +12,7 @@ public class Event implements Serializable{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EventIDSeq")
 	@SequenceGenerator(allocationSize = 1, name = "EventIDSeq", sequenceName = "EventIDSeq")
 	@Column(name = "EventID")
-	private long id;
+	private int id;
 	@ManyToMany(cascade=CascadeType.ALL)
 	private List<Venue> venues;
 	@Column(name = "NAME")
@@ -36,11 +36,11 @@ public class Event implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	
