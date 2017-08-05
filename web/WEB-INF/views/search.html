@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search page</title>
+</head>
+<body>
+
+<form th:action="@{/search/venue/}" method="get">
+    <input type="text" placeholder="What do you want to search?">
+    <br>
+    <button>Submit</button>
+</form>
+
+</body>
+</html>

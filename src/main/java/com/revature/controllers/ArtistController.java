@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class ArtistController
@@ -62,5 +63,17 @@ public class ArtistController
         LOGGER.debug("Artist was updated");
 
         return "redirect:/edit-artist";
+    }
+
+    @RequestMapping(value = "search/artist/{query}", method = RequestMethod.GET)
+    public void search(@PathVariable("query") String s)
+    {
+        LOGGER.debug("Started searching");
+        List list = ArtistDA.search(s);
+
+        for (Object aList : list)
+        {
+            System.out.println("object: " + aList);
+        }
     }
 }
