@@ -42,7 +42,7 @@ public class VenueDataAccess implements VenueDao
 
         QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(Venue.class ).get();
         org.apache.lucene.search.Query query = qb.keyword()
-                                                .onField("genre")
+                                                .onFields("address", "name", "events")
                                                 .matching(s)
                                                 .createQuery();
         // Wrap Lucene query with Hibernate query

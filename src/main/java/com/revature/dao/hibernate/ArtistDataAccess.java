@@ -43,7 +43,7 @@ public class ArtistDataAccess implements ArtistDao
 
         QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(Artist.class ).get();
         org.apache.lucene.search.Query query = qb.keyword()
-                .onFields("address", "name", "events")
+                .onField("genre")
                 .matching(s)
                 .createQuery();
         // Wrap Lucene query with Hibernate query
