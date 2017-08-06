@@ -5,6 +5,13 @@ import main.java.com.revature.domain.Venue;
 import main.java.com.revature.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
+
+import java.util.List;
 
 public class VenueDataAccess implements VenueDao
 {
@@ -28,5 +35,26 @@ public class VenueDataAccess implements VenueDao
         session.close();
 
         return venue;
+    }
+
+    @Override
+    public List searchVenue(String s)
+    {
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+        Transaction tx = fullTextSession.beginTransaction();
+
+        QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(Venue.class ).get();
+        org.apache.lucene.search.Query query = qb.keyword()
+                                                .onFields("address", "name", "events")
+                                                .matching(s)
+                                                .createQuery();
+        // Wrap Lucene query with Hibernate query
+        Query hibQuery = fullTextSession.createFullTextQuery(query, Venue.class);
+
+        List result = hibQuery.list();
+        tx.commit();
+        session.close();
+
+        return result;
     }
 }

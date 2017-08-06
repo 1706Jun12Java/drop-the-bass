@@ -112,4 +112,16 @@ public class ArtistController
 
         return "redirect:/edit-artist";
     }
+
+    @RequestMapping(value = "search/artist/{query}", method = RequestMethod.GET)
+    public void search(@PathVariable("query") String s)
+    {
+        LOGGER.debug("Started searching");
+        List list = ArtistDA.search(s);
+
+        for (Object aList : list)
+        {
+            System.out.println("object: " + aList);
+        }
+    }
 }
