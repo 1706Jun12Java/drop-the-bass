@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="dashboard">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <link rel="stylesheet" href=https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js" type="text/javascript"></script>
+    <link rel = stylesheet th:href="@{/css/VODashboard.css}">
+</head>
+<body>
+<div th:replace="fragments/VONavbar :: header"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Venues
+                <small>Establishments you own</small>
+            </h1>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Projects Row -->
+    <th:block th:each="venue,iter :${Venues}" th:object="${owner}">
+        <div class="span3 well">
+            <div style="text-align: center;">
+                <a data-toggle="modal" th:attr="data-target='#venue'+${venue.id}"><img th:src="${venue.pictureURL}" name="aboutme" width="140" height="140" class="img-circle"></a>
+                <h3 th:text="${venue.name}"></h3>
+                <em></em>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" th:id ="'venue'+${venue.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title" th:id ="'venue'+${venue.id}">Venue</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div style="text-align: center;">
+                            <img th:src="${venue.pictureURL}" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+                            <h3 class="media-heading" th:text="${venue.name}"></h3>
+                            <span><strong>Address: </strong></span>
+                            <span  th:text="${venue.address}"></span><br>
+                            <span><strong>Website: </strong></span>
+                            <span th:text="${venue.website}"></span><br>
+                            <span><strong>Owned By</strong></span>
+                            <span th:text="${owner.firstName}+' '+${owner.lastName}"></span><br>
+                            <span><strong>Contact Number</strong></span>
+                            <span th:text="${owner.phoneNumber}"></span><br>
+                        </div>
+                        <hr>
+                        <span><strong>Events </strong></span>
+                        <div style="text-align: center;">
+                            <p class="text-left" th:text="'SAMPLE TEXT'"></p><br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="text-align: center;">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <div class="span3 well">
+        <div style="text-align: center;">
+            <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img src="http://www.clker.com/cliparts/4/Q/y/b/q/y/small-green-plus-sign-hi.png" name="aboutme" width="140" height="140" class="img-circle"></a>
+            <h3>Create new Venue</h3>
+            <em></em>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">New Venue</h4>
+                </div>
+                <div class="modal-body">
+                    <form name="form" role="form"  th:action="@{/createVenue}" enctype="multipart/form-data" th:method="post" th:object="${newVenue}">
+                        <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && (form.username.$error.required || form.username.$error.minlength)}">
+                            <label for="venuename">Venue Name</label>
+                            <input  name="venuename" id="venuename" class="form-control" ng-model="user.venueName" ng-minlength="3" ng-maxlength="32" required th:field ="${newVenue.name}" />
+                            <span ng-show="form.username.$dirty && (form.username.$error.required)" class="help-block">Name is required</span>
+                            <span ng-show="form.username.$dirty && form.username.$error.minlength" class="help-block">Name is too short</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" name="address" id="address" class="form-control" th:field = "${newVenue.address}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="website">Website</label>
+                            <input type="text" name="website" id="website" class="form-control" th:field = "${newVenue.website}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="pic">Upload Photo</label>
+                            <input type="file" name="pic" id="pic" class="form-control"/>
+                        </div>
+                        <br>
+                        <div class="form-actions">
+                            <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <hr>
+
+</div><!--/.container-->
+<script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script th:src="@{/js/VODashboard.js}"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app='artist'>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <link rel="stylesheet" href=https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js" type="text/javascript"></script>
+    <script th:src="@{/js/Artist.js}"></script>
+    <link rel = stylesheet th:href="@{/css/ArtistProfile.css}">
+</head>
+<body>
+<div th:replace="fragments/ArtistNavbar :: header"></div>
+
+<div class="container" th:object="${artist}">
+    <div class="span3 well">
+        <div style="text-align: center;">
+            <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img th:src="${artist.picture}" name="aboutme" width="140" height="140" class="img-circle"></a>
+            <h3 th:text="${artist.bandName}"></h3>
+            <em>click photo for more details</em>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">Artist</h4>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align: center;">
+                        <img th:src="${artist.picture}" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+                        <h3 class="media-heading" th:text="${artist.bandName}"></h3>
+                        <span><strong>Genre: </strong></span>
+                        <span class="label label-warning" th:text="${artist.genre}"></span><br>
+                        <span><strong>Website: </strong></span>
+                        <span th:text="${artist.website}"></span><br>
+                        <span><strong>SoundCloud: </strong></span><br>
+                        <span th:text="${artist.soundCloudURL}"></span>
+                    </div>
+                    <hr>
+                    <span><strong>Description </strong></span>
+                    <div style="text-align: center;">
+                        <p class="text-left" th:text="${artist.description}"></p><br>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+</div>
+</body>
+</html>
