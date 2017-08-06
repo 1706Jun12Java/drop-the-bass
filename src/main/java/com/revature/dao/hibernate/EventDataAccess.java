@@ -6,7 +6,9 @@ import main.java.com.revature.domain.Event;
 import main.java.com.revature.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class EventDataAccess implements EventDao
 {
     private Session session = HibernateUtil.getSession();

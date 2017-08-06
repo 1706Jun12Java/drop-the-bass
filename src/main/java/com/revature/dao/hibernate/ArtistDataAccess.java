@@ -6,7 +6,9 @@ import main.java.com.revature.domain.Artist;
 import main.java.com.revature.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ArtistDataAccess implements ArtistDao
 {
     private Session session = HibernateUtil.getSession();
