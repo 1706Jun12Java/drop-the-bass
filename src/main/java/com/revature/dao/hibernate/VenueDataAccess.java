@@ -5,7 +5,9 @@ import main.java.com.revature.domain.Venue;
 import main.java.com.revature.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class VenueDataAccess implements VenueDao
 {
     private Session session = HibernateUtil.getSession();

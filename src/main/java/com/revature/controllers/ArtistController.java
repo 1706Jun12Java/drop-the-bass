@@ -2,8 +2,6 @@ package main.java.com.revature.controllers;
 
 
 import main.java.com.revature.dao.UserDao;
-import main.java.com.revature.dao.hibernate.ArtistDataAccess;
-import main.java.com.revature.dao.hibernate.UserDataAccess;
 import main.java.com.revature.dao.hibernate.access.ArtistDA;
 import main.java.com.revature.domain.Artist;
 import main.java.com.revature.domain.BandMember;
@@ -46,7 +44,6 @@ public class ArtistController
     public String artistProfileDisplay(HttpServletRequest request, Model model)
     {
         LOGGER.debug("In artist profile method");
-        //TODO Figure out how to find id through session
         HttpSession sess = request.getSession(false);
         if(sess!=null) {
             int id = (int) sess.getAttribute("userID");
