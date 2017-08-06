@@ -4,13 +4,11 @@ package main.java.com.revature.dao.hibernate;
 import main.java.com.revature.dao.ArtistDao;
 import main.java.com.revature.domain.Artist;
 import main.java.com.revature.util.HibernateUtil;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
-import org.hibernate.search.query.dsl.QueryBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistDataAccess implements ArtistDao
@@ -36,23 +34,59 @@ public class ArtistDataAccess implements ArtistDao
     }
 
     @Override
-    public List searchArtist(String s)
+    public List<Artist> searchArtistName(String s)
     {
-        FullTextSession fullTextSession = Search.getFullTextSession(session);
-        Transaction tx = fullTextSession.beginTransaction();
+        Query q = session.createQuery("from Artist");
+        ArrayList<Artist> result = new ArrayList();
+        List<Artist> dbStuff = q.list();
+        if(!s.equalsIgnoreCase("all")){
+            for(Artist u : dbStuff){
+                if(s.equalsIgnoreCase(u.getBandName())){
+                    result.add(u);
+                }
+            }
+        }else {
+            session.close();
+            return dbStuff;
+        }
 
-        QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(Artist.class ).get();
-        org.apache.lucene.search.Query query = qb.keyword()
-                .onField("genre")
-                .matching(s)
-                .createQuery();
-        // Wrap Lucene query with Hibernate query
-        Query hibQuery = fullTextSession.createFullTextQuery(query, Artist.class);
-
-        List result = hibQuery.list();
-        tx.commit();
         session.close();
 
         return result;
+    }
+    @Override
+    public List<Artist> searchArtistGenre(String s)
+    {
+        Query q = session.createQuery("from Artist ");
+        ArrayList<Artist> result = new ArrayList();
+        List<Artist> dbStuff = q.list();
+        if(!s.equalsIgnoreCase("all")){
+            for(Artist u : dbStuff){
+                if(s.equalsIgnoreCase(u.getGenre())){
+                    result.add(u);
+                }
+            }
+        }else {
+            session.close();
+            return dbStuff;
+        }
+
+        session.close();
+
+        return result;
+    }
+
+    public static boolean containsIgnoreCase(String str, String searchStr)     {
+        if(str == null || searchStr == null) return false;
+
+        final int length = searchStr.length();
+        if (length == 0)
+            return true;
+
+        for (int i = str.length() - length; i >= 0; i--) {
+            if (str.regionMatches(true, i, searchStr, 0, length))
+                return true;
+        }
+        return false;
     }
 }

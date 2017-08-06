@@ -1,16 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="dashboard">
 <head>
-    <meta charset="UTF-8">
-    <title>Search page</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <link rel="stylesheet" href=https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js" type="text/javascript"></script>
+    <link rel = stylesheet th:href="@{/css/Search.css}">
+    <script th:src="@{/js/VODashboard.js}"></script>
 </head>
-<body>
+<body th:object="${currentUser}">
+<th:block th:if="${currentUser.accountType} == 'venueowner'">
+    <div th:replace="fragments/VONavbar :: header"></div>
+</th:block>
+<th:block th:if="${currentUser.accountType} == 'artist'">
+    <div th:replace="fragments/ArtistNavbar :: header"></div>
+</th:block>
 
-<form th:action="@{/search/venue/}" method="get">
-    <input type="text" placeholder="What do you want to search?">
-    <br>
-    <button>Submit</button>
-</form>
 
+<div class="container" name = "content">
+    <form name="form" role="form"   enctype="multipart/form-data" th:action="@{/search}" th:method="post">
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <div class="form-group">
+                            <label for = searchby>Search by</label>
+                            <select name="searchby" id="searchby">
+                                <option value="1">Artist Name</option>
+                                <option value="2">Artist Genre</option>
+                                <option value="3">Venue Name</option>
+                                <option value="4">Venue Owner Name</option>
+                            </select>
+                </div>
+                <input type="text" class="form-control" name="query" id="query" placeholder="Search term..."><br>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 </body>
 </html>

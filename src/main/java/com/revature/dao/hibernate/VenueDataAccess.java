@@ -3,14 +3,11 @@ package main.java.com.revature.dao.hibernate;
 import main.java.com.revature.dao.VenueDao;
 import main.java.com.revature.domain.Venue;
 import main.java.com.revature.util.HibernateUtil;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
-import org.hibernate.search.query.dsl.QueryBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VenueDataAccess implements VenueDao
@@ -38,21 +35,47 @@ public class VenueDataAccess implements VenueDao
     }
 
     @Override
-    public List searchVenue(String s)
+    public List<Venue> searchVenueByName(String s)
     {
-        FullTextSession fullTextSession = Search.getFullTextSession(session);
-        Transaction tx = fullTextSession.beginTransaction();
+        Query q = session.createQuery("from Venue");
+        ArrayList<Venue> result = new ArrayList();
+        List<Venue> dbStuff = q.list();
+        if(!s.equalsIgnoreCase("all")){
+            for(Venue u : dbStuff){
+                if(s.equalsIgnoreCase(u.getName())){
+                    result.add(u);
+                }
+            }
+        }else {
+            session.close();
+            return dbStuff;
+        }
 
-        QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(Venue.class ).get();
-        org.apache.lucene.search.Query query = qb.keyword()
-                                                .onFields("address", "name", "events")
-                                                .matching(s)
-                                                .createQuery();
-        // Wrap Lucene query with Hibernate query
-        Query hibQuery = fullTextSession.createFullTextQuery(query, Venue.class);
+        session.close();
 
-        List result = hibQuery.list();
-        tx.commit();
+        return result;
+    }
+
+    @Override
+    public List<Venue> searchVenueOwner(String s)
+    {
+        Query q = session.createQuery("from Venue");
+        ArrayList<Venue> result = new ArrayList();
+        List<Venue> dbStuff = q.list();
+        s = s.replace(" ", "");
+        if(!s.equalsIgnoreCase("all")){
+            for(Venue u : dbStuff){
+                String name = u.getVenueOwner().getFirstName();
+                name += u.getVenueOwner().getLastName();
+                if(s.equalsIgnoreCase(name)){
+                    result.add(u);
+                }
+            }
+        }else {
+            session.close();
+            return dbStuff;
+        }
+
         session.close();
 
         return result;

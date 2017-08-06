@@ -10,5 +10,8 @@ public interface ArtistDao
     Artist getArtistById(int id);
     void updateArtist(Artist artist);
 
-    List searchArtist(String s);
+
+    List<Artist> searchArtistName(String s);
+
+    List<Artist> searchArtistGenre(String s);
 }

@@ -17,8 +17,12 @@ public class ArtistDA
         new ArtistDataAccess().updateArtist(artist);
     }
 
-    public static List search(String query)
+    public static List searchByGenre(String query)
     {
-        return new ArtistDataAccess().searchArtist(query);
+        return new ArtistDataAccess().searchArtistGenre(query);
+    }
+    public static List searchByName(String query)
+    {
+        return new ArtistDataAccess().searchArtistName(query);
     }
 }

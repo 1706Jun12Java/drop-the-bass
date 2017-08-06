@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -39,7 +40,7 @@ public class VOController {
                 int id = (int) sess.getAttribute("userID");
                 VenueOwner u = (VenueOwner) UserDA.getUserById(id);
                 m.addAttribute("newVenue", new Venue());
-                m.addAttribute("Venues", u.getVenues());
+                m.addAttribute("Venues", new HashSet<>(u.getVenues()));
                 m.addAttribute("owner",u);
             }
         } else {
@@ -60,8 +61,8 @@ public class VOController {
                 for(Event e: me){
                     System.out.println(e.getName());
                 }
-                m.addAttribute("currentevents",u.getEvents());
-                m.addAttribute("venues", u.getVenues());
+                m.addAttribute("currentevents", new HashSet<>(u.getEvents()));
+                m.addAttribute("venues", new HashSet<>(u.getVenues()));
                 m.addAttribute("newevent",new Event());
             }
         } else {

@@ -11,5 +11,7 @@ public interface VenueDao
 
     Venue getVenueById(int id);
 
-    List searchVenue(String s);
+    List<Venue> searchVenueByName(String s);
+
+    List<Venue> searchVenueOwner(String s);
 }

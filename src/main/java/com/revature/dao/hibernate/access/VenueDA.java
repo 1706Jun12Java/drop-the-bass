@@ -33,8 +33,12 @@ public class VenueDA
         return new VenueDataAccess().getVenueById(id);
     }
 
-    public static List Search(String query)
+    public static List SearchByName(String query)
     {
-        return new VenueDataAccess().searchVenue(query);
+        return new VenueDataAccess().searchVenueByName(query);
+    }
+    public static List SearchByOwner(String query)
+    {
+        return new VenueDataAccess().searchVenueOwner(query);
     }
 }

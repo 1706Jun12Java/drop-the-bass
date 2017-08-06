@@ -1,13 +1,12 @@
 package main.java.com.revature.domain;
 
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Indexed
+
 @Entity
 @Table(name = "ARTIST")
 @PrimaryKeyJoinColumn(name = "OWNER_ID", referencedColumnName = "USER_ID")
@@ -15,7 +14,7 @@ public class Artist extends User implements Serializable{
 	@Column(name = "WEBSITE")
 	private String website;
 
-	@Field
+
 	@Column(name = "GENRE")
 	private String genre;
 
