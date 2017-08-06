@@ -4,8 +4,10 @@ import main.java.com.revature.dao.UserDao;
 import main.java.com.revature.dao.VenueDao;
 import main.java.com.revature.dao.hibernate.VenueDataAccess;
 import main.java.com.revature.dao.hibernate.VenueOwnerDataAccess;
+import main.java.com.revature.dao.hibernate.access.EventDA;
 import main.java.com.revature.dao.hibernate.access.UserDA;
 import main.java.com.revature.dao.hibernate.access.VenueDA;
+import main.java.com.revature.domain.Event;
 import main.java.com.revature.domain.User;
 import main.java.com.revature.domain.Venue;
 import main.java.com.revature.domain.VenueOwner;
@@ -20,6 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class VOController {
@@ -42,6 +47,67 @@ public class VOController {
         }
         return "VODashboard";
     }
+
+    @RequestMapping(value ="/events", method= RequestMethod.GET)
+    public String voEvents(HttpServletRequest request ,Model m){
+        HttpSession sess = request.getSession(false);
+        if(sess!=null) {
+            String accountType = (String) sess.getAttribute("accountType");
+            if (accountType.equalsIgnoreCase("venueowner")) {
+                int id = (int) sess.getAttribute("userID");
+                VenueOwner u = (VenueOwner) UserDA.getUserById(id);
+                List<Event> me = u.getEvents();
+                for(Event e: me){
+                    System.out.println(e.getName());
+                }
+                m.addAttribute("currentevents",u.getEvents());
+                m.addAttribute("venues", u.getVenues());
+                m.addAttribute("newevent",new Event());
+            }
+        } else {
+            return"redirect:/";
+        }
+        return "EventPage";
+    }
+    @RequestMapping(value ="/updateEvents", method= RequestMethod.POST)
+    public String voEvents(HttpServletRequest request ,Model m,@RequestParam(value = "v") String[] values,Event event,@RequestParam(value = "starttime")String start,@RequestParam(value = "endtime")String end){
+        HttpSession sess = request.getSession(false);
+        if(sess!=null) {
+            String accountType = (String) sess.getAttribute("accountType");
+            if (accountType.equalsIgnoreCase("venueowner")) {
+                int id = (int) sess.getAttribute("userID");
+                VenueOwner u = (VenueOwner) UserDA.getUserById(id);
+                Event newEvent = new Event();
+                if (start.lastIndexOf(":")==13) {
+                    start += ":00";
+                }
+                if (end.lastIndexOf(":")==13) {
+                    end += ":00";
+                }
+                newEvent.setStart(Timestamp.valueOf(start.replace("T"," ")));
+                newEvent.setEnd(Timestamp.valueOf(end.replace("T"," ")));
+                newEvent.setDescription(event.getDescription());
+                newEvent.setName(event.getName());
+                newEvent.setVenueOwner(u);
+                List<Venue> venues = u.getVenues();
+                ArrayList<Venue> eventVenues = new ArrayList<>();
+                for(Venue venue:venues){
+                    for(String value: values) {
+                        int vId = Integer.parseInt(value);
+                        if (venue.getId() == vId){
+                           eventVenues.add(venue);
+                        }
+                    }
+                }
+                newEvent.setVenues(eventVenues);
+                EventDA.save(newEvent);
+            }
+        } else {
+            return"redirect:/";
+        }
+        return "redirect:/events";
+    }
+
     @RequestMapping(value = "/updateVO" ,method=RequestMethod.POST)
     public String updateArtist(HttpServletRequest request, Model model, VenueOwner vo){
         HttpSession sess = request.getSession(false);
@@ -65,6 +131,7 @@ public class VOController {
         }
         return "redirect:/vosettings";
     }
+
     @RequestMapping(value = "/vosettings", method = RequestMethod.GET)
     public String editArtistInfo(HttpServletRequest request, Model model)
     {

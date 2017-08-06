@@ -5,6 +5,7 @@ import main.java.com.revature.dao.EventDao;
 import main.java.com.revature.domain.Event;
 import main.java.com.revature.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class EventDataAccess implements EventDao
 {
@@ -13,10 +14,11 @@ public class EventDataAccess implements EventDao
     @Override
     public int createEvent(Event event)
     {
-        int id = (int) session.save(event);
+        Transaction tx = session.beginTransaction();
+        session.save(event);
+        tx.commit();
         session.close();
-
-        return id;
+        return event.getId();
     }
 
     @Override
