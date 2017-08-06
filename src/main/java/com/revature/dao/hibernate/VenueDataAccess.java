@@ -4,6 +4,7 @@ import main.java.com.revature.dao.VenueDao;
 import main.java.com.revature.domain.Venue;
 import main.java.com.revature.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class VenueDataAccess implements VenueDao
 {
@@ -12,10 +13,12 @@ public class VenueDataAccess implements VenueDao
     @Override
     public int createVenue(Venue venue)
     {
-        int id = (int) session.save(venue);
+        Transaction tx = session.beginTransaction();
+        session.save(venue);
+        tx.commit();
         session.close();
 
-        return id;
+        return 1;
     }
 
     @Override

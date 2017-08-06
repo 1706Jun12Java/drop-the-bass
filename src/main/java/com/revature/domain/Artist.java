@@ -20,9 +20,19 @@ public class Artist extends User implements Serializable{
 	private String soundCloudURL;
 	@OneToMany(mappedBy="artist",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<BandMember> members;
+
+	public String getBandName() {
+		return bandName;
+	}
+
+	public void setBandName(String bandName) {
+		this.bandName = bandName;
+	}
+
 	@Column(name = "DESCRIPTION")
 	private String description;
-
+	@Column(name = "BAND_NAME")
+	private String bandName;
 	public String getWebsite() {
 		return website;
 	}

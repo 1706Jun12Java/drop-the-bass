@@ -42,6 +42,6 @@ public class S3Util
             e.printStackTrace();
         }
 
-        return S3.getUrl(BUCKET_NAME, saveLocation + file.getOriginalFilename()).toString();
+        return S3.getUrl(BUCKET_NAME, saveLocation).toString();
     }
 }

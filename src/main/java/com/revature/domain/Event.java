@@ -12,11 +12,15 @@ public class Event implements Serializable{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EventIDSeq")
 	@SequenceGenerator(allocationSize = 1, name = "EventIDSeq", sequenceName = "EventIDSeq")
 	@Column(name = "EventID")
-	private long id;
+	private int id;
 	@ManyToMany(cascade=CascadeType.ALL)
 	private List<Venue> venues;
+	@Column(name = "NAME")
+	private String name;
 	@Column(name = "DESCRIPTION")
 	private String description;
+
+
 	@Column(name = "EVENT_START")
 	private Timestamp start;
 	@Column(name = "EVENT_END")
@@ -24,12 +28,19 @@ public class Event implements Serializable{
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name ="CREATED_BY")
 	private VenueOwner venueOwner;
-	
-	public long getId() {
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getId() {
 		return id;
 	}
 	
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	
