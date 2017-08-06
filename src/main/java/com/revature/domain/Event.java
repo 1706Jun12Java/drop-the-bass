@@ -7,7 +7,6 @@ import java.util.List;
 @Entity
 @Table(name="Event_TABLE")
 public class Event implements Serializable{
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EventIDSeq")
 	@SequenceGenerator(allocationSize = 1, name = "EventIDSeq", sequenceName = "EventIDSeq")

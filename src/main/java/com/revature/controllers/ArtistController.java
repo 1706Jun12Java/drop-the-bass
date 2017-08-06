@@ -3,6 +3,7 @@ package main.java.com.revature.controllers;
 
 import main.java.com.revature.dao.UserDao;
 import main.java.com.revature.dao.hibernate.access.ArtistDA;
+import main.java.com.revature.dao.hibernate.access.UserDA;
 import main.java.com.revature.domain.Artist;
 import main.java.com.revature.domain.BandMember;
 import main.java.com.revature.util.S3Util;
@@ -11,11 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ArtistController
@@ -108,5 +112,31 @@ public class ArtistController
         LOGGER.debug("Artist was updated");
 
         return "redirect:/edit-artist";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String search(@RequestParam(value = "query") String s,@RequestParam(value="searchby") String searchby, Model m, RedirectAttributes redirectAttributes, HttpServletRequest request)
+    {
+        LOGGER.debug("Started searching");
+        List<Artist> results;
+        Set<Artist> aset;
+        HttpSession session = request.getSession(false);
+        switch(searchby){
+            case "1":
+                results = ArtistDA.searchByName(s);
+                aset = new HashSet<>(results);
+                m.addAttribute("Artists",aset);
+                m.addAttribute("currentUser", UserDA.getUserById((int)session.getAttribute("userID")));
+            return "ArtistResults";
+            case "2":
+                results =  ArtistDA.searchByGenre(s);
+                aset = new HashSet<>(results);
+                m.addAttribute("Artists",aset);
+                m.addAttribute("currentUser", UserDA.getUserById((int)session.getAttribute("userID")));
+                return "ArtistResults";
+            default: redirectAttributes.addAttribute("query",s);
+                redirectAttributes.addAttribute("searchby",searchby);
+                return "redirect:/searchvenue";
+        }
     }
 }

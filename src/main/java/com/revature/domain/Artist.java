@@ -1,8 +1,11 @@
 package main.java.com.revature.domain;
 
+
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+
 
 @Entity
 @Table(name = "ARTIST")
@@ -10,6 +13,8 @@ import java.util.List;
 public class Artist extends User implements Serializable{
 	@Column(name = "WEBSITE")
 	private String website;
+
+
 	@Column(name = "GENRE")
 	private String genre;
 
@@ -18,6 +23,7 @@ public class Artist extends User implements Serializable{
 
 	@Column(name = "SOUND_URL")
 	private String soundCloudURL;
+
 	@OneToMany(mappedBy="artist",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<BandMember> members;
 

@@ -1,14 +1,11 @@
 package main.java.com.revature.controllers;
 
 import main.java.com.revature.dao.UserDao;
-import main.java.com.revature.dao.VenueDao;
-import main.java.com.revature.dao.hibernate.VenueDataAccess;
 import main.java.com.revature.dao.hibernate.VenueOwnerDataAccess;
 import main.java.com.revature.dao.hibernate.access.EventDA;
 import main.java.com.revature.dao.hibernate.access.UserDA;
 import main.java.com.revature.dao.hibernate.access.VenueDA;
 import main.java.com.revature.domain.Event;
-import main.java.com.revature.domain.User;
 import main.java.com.revature.domain.Venue;
 import main.java.com.revature.domain.VenueOwner;
 import main.java.com.revature.util.S3Util;
@@ -24,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -39,7 +37,7 @@ public class VOController {
                 int id = (int) sess.getAttribute("userID");
                 VenueOwner u = (VenueOwner) UserDA.getUserById(id);
                 m.addAttribute("newVenue", new Venue());
-                m.addAttribute("Venues", u.getVenues());
+                m.addAttribute("Venues", new HashSet<>(u.getVenues()));
                 m.addAttribute("owner",u);
             }
         } else {
@@ -60,8 +58,8 @@ public class VOController {
                 for(Event e: me){
                     System.out.println(e.getName());
                 }
-                m.addAttribute("currentevents",u.getEvents());
-                m.addAttribute("venues", u.getVenues());
+                m.addAttribute("currentevents", new HashSet<>(u.getEvents()));
+                m.addAttribute("venues", new HashSet<>(u.getVenues()));
                 m.addAttribute("newevent",new Event());
             }
         } else {
