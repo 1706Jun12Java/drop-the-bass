@@ -3,7 +3,9 @@ package main.java.com.revature.dao.hibernate.access;
 
 import main.java.com.revature.dao.hibernate.EventDataAccess;
 import main.java.com.revature.domain.Event;
+import org.springframework.stereotype.Service;
 
+@Service
 public class EventDA
 {
     /**

@@ -7,11 +7,13 @@ import main.java.com.revature.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+@Repository
 public class UserDataAccess implements UserDao
 {
     private Session session = HibernateUtil.getSession();

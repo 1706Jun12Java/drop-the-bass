@@ -3,11 +3,14 @@ package main.java.com.revature.dao.hibernate.access;
 
 import main.java.com.revature.dao.hibernate.BandMemberDataAccess;
 import main.java.com.revature.domain.BandMember;
+import org.springframework.stereotype.Service;
 
 
 /**
  * Wrapper class of Data Access Object
  */
+
+@Service
 public class BandMemberDA
 {
     /**

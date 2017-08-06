@@ -5,12 +5,14 @@ import main.java.com.revature.dao.hibernate.UserDataAccess;
 import main.java.com.revature.domain.Artist;
 import main.java.com.revature.domain.User;
 import main.java.com.revature.domain.VenueOwner;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * Wrapper class of User Data Access
  */
+@Service
 public class UserDA
 {
     /**
@@ -38,8 +40,7 @@ public class UserDA
         a.setUsername(username);
         a.setPassword(hashedWord);
         a.setAccountType(accountType);
-        int id = save(a);
-        return id;
+        return save(a);
     }
 
     private static int createVenueOwner(String username, String password,String accountType){
@@ -48,8 +49,7 @@ public class UserDA
         vo.setUsername(username);
         vo.setPassword(hashedWord);
         vo.setAccountType(accountType);
-        int id = save(vo);
-        return id;
+        return save(vo);
          }
     /**
      * Find a user by its id

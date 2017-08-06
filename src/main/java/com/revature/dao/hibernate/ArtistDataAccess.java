@@ -7,10 +7,12 @@ import main.java.com.revature.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class ArtistDataAccess implements ArtistDao
 {
     private Session session = HibernateUtil.getSession();

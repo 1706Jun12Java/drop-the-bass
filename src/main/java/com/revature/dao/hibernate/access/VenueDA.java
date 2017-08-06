@@ -3,12 +3,16 @@ package main.java.com.revature.dao.hibernate.access;
 
 import main.java.com.revature.dao.hibernate.VenueDataAccess;
 import main.java.com.revature.domain.Venue;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import java.util.List;
 
 /**
  * Wrapper class for Venue model Data Access
  */
+@Service
 public class VenueDA
 {
     /**
