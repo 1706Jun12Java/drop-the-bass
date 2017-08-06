@@ -1,0 +1,6 @@
+div[name = "content"] {
+    position: fixed;
+    top: 50%;
+    left: 25%;
+
+}
