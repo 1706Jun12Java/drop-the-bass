@@ -42,3 +42,5 @@ hs_err_pid*
 out/
 *.properties
 .classpath
+
+!/src/main/resources/log4j.properties
