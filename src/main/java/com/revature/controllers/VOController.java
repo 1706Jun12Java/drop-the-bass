@@ -1,14 +1,11 @@
 package main.java.com.revature.controllers;
 
 import main.java.com.revature.dao.UserDao;
-import main.java.com.revature.dao.VenueDao;
-import main.java.com.revature.dao.hibernate.VenueDataAccess;
 import main.java.com.revature.dao.hibernate.VenueOwnerDataAccess;
 import main.java.com.revature.dao.hibernate.access.EventDA;
 import main.java.com.revature.dao.hibernate.access.UserDA;
 import main.java.com.revature.dao.hibernate.access.VenueDA;
 import main.java.com.revature.domain.Event;
-import main.java.com.revature.domain.User;
 import main.java.com.revature.domain.Venue;
 import main.java.com.revature.domain.VenueOwner;
 import main.java.com.revature.util.S3Util;
