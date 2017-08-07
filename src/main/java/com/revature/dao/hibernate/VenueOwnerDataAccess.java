@@ -1,12 +1,13 @@
 package main.java.com.revature.dao.hibernate;
 
 import main.java.com.revature.dao.VenueOwnerDao;
-import main.java.com.revature.domain.Artist;
 import main.java.com.revature.domain.VenueOwner;
 import main.java.com.revature.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class VenueOwnerDataAccess implements VenueOwnerDao {
     private Session session = HibernateUtil.getSession();
     @Override
